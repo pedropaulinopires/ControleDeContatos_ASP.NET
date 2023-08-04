@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["title"] = "Editar contato";
+}
+@using ControleDeContatos.Models.Dtos
+@model ContatoPut
+<div class="text-center">
+    <h1 class="display-4">Editar Contato</h1>
+    <form asp-controller="Contato" asp-action="Editar" method="Post">
+        <input type="hidden" asp-for="id" />
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control @((ViewData.ModelState["Nome"] != null && ViewData.ModelState["Nome"].Errors.Count > 0) ? "is-invalid" : "")" asp-for="Nome" id="nome" value="@Model.Nome" placeholder="Digite o nome do contato...">
+            @Html.ValidationMessageFor(x => x.Nome)
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            <input type="text" asp-for="Email" class="form-control @((ViewData.ModelState["Email"] != null && ViewData.ModelState["Email"].Errors.Count > 0) ? "is-invalid" : "")" id="email" value="@Model.Email" placeholder="Digite o email do contato...">
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+        <div class="mb-3">
+            <label for="tel" class="form-label">Telefone</label>
+            <input type="text" class="form-control  @((ViewData.ModelState["Telefone"] != null && ViewData.ModelState["Telefone"].Errors.Count > 0) ? "is-invalid" : "")" id="tel" asp-for="Telefone" value="@Model.Telefone" placeholder="Digite o telefone do contato...">
+            @Html.ValidationMessageFor(x => x.Telefone)
+        </div>
+        <div class="d-grid gap-2">
+            <button type="submit" class=" btn btn-primary " >Editar</button>
+            <a role="button" class=" btn btn-secondary " asp-controller="Contato" asp-action="Index">Voltar</a>
+        </div>
+
+    </form>
+
+</div>

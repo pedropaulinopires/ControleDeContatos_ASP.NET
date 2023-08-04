@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["title"] = "Contatos";
+}
+@using ControleDeContatos.Models.Entity
+@model List<ContatoModel>
+
+<div class="text-center" >
+    <div class="text-center" style="margin:15px">
+        <a role="button" class="btn btn-primary" asp-controller="Contato" asp-action="Novo">Adiconar novo contato</a>
+    </div>
+    <h1 class="display-4">Listagem de contatos</h1>
+    
+    @if (TempData["Exito"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["Exito"]
+            <button type="button" class="btn btn-danger close">X</button>
+        </div>
+    }
+    <br/>
+    @if(TempData["Error"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn btn-danger close">X</button>
+        </div>
+    }
+    
+    @if (Model != null && Model.Any())
+    {
+        <table class="table" style="width:90vw; margin:auto;">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ContatoModel contato in Model)
+                {
+                    <tr>
+                        <th scope="row">@contato.Id</th>
+                        <td>@contato.Nome</td>
+                        <td>@contato.Email</td>
+                        <td>@contato.Telefone</td>
+                        <td>
+                            <a type="button" class="btn btn-primary " asp-route-id="@contato.Id" asp-controller="Contato" asp-action="Editar">Editar</a>
+                            <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#modal-@contato.Id">Excluir</button>
+                        </td>
+                    </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal-@contato.Id" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir contato</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Você realmente deseja excluir o contato (@contato.Nome)?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+                                    <a role="button" class="btn btn-danger" asp-route-id="@contato.Id" asp-controller="Contato" asp-action="Remover">Excluir</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+            </tbody>
+        </table>
+    }   else
+    {
+        <div class="alert alert-primary" role="alert" style="margin-top:20px">
+            O sistema não possui contatos!<a asp-action="Novo" asp-controller="Contato">Adicone um novo aqui!</a>
+        </div>
+    }     
+</div>

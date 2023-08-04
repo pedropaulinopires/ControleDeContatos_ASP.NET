@@ -17,7 +17,8 @@ body {
   margin-bottom: 60px;
 }
 .btn {
-    margin: 5px
+    margin: 1px;
+    word-break:normal
 }
 
 table {
@@ -26,7 +27,11 @@ table {
 }
 
 table td{
-   word-break:break-word
+   line-break:inherit;
+   text-align:center;
+    word-break:break-word;
+
+
 }
 
 .field-validation-error{

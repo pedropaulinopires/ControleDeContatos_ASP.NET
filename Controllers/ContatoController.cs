@@ -47,12 +47,19 @@ namespace ControleDeContatos.Controllers
         public IActionResult Editar(long id)
         {
             ContatoModel contatoModel = _contatoRepositorio.buscarId(id);
-            ContatoPut contatoPut = new ContatoPut();
-            contatoPut.id = id;
-            contatoPut.Nome = contatoModel.Nome;
-            contatoPut.Email = contatoModel.Email;
-            contatoPut.Telefone = contatoModel.Telefone;
-            return View(contatoPut);
+            if(contatoModel != null)
+            {
+                ContatoPut contatoPut = new ContatoPut();
+                contatoPut.id = id;
+                contatoPut.Nome = contatoModel.Nome;
+                contatoPut.Email = contatoModel.Email;
+                contatoPut.Telefone = contatoModel.Telefone;
+                return View(contatoPut);
+            } else
+            {
+                return new RedirectResult("/Contato/Index");
+            }
+            
         }
 
         [HttpPost]

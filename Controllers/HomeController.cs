@@ -17,6 +17,7 @@ namespace ControleDeContatos.Controllers
 
         public IActionResult Index()
         {
+            /*adicionando o cookie*/
             CookieOptions cookie = new CookieOptions();
             cookie.Expires = DateTime.Now.AddHours(10);
             cookie.HttpOnly = true;

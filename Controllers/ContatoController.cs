@@ -17,6 +17,7 @@ namespace ControleDeContatos.Controllers
         public IActionResult Index()
         {
             List<ContatoModel> contatoModels = _contatoRepositorio.Listar();
+            TempData["cookie"] = Request.Cookies["Autenticacao"];
             return View(contatoModels);
         }
         public IActionResult Novo()
@@ -54,6 +55,11 @@ namespace ControleDeContatos.Controllers
                 contatoPut.Nome = contatoModel.Nome;
                 contatoPut.Email = contatoModel.Email;
                 contatoPut.Telefone = contatoModel.Telefone;
+
+                CookieOptions cookie = new CookieOptions();
+                cookie.Expires = DateTime.Now.AddDays(-10);
+                cookie.HttpOnly = true;
+                Response.Cookies.Append("Autenticacao", "", cookie);
                 return View(contatoPut);
             } else
             {

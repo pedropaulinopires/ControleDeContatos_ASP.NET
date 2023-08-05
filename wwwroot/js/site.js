@@ -1,5 +1,5 @@
 ﻿$(".close").click(() => {
-    $(".alert").hide("hide")
+    $(".alertaMsg").hide("hide")
 })
 
 $('#table-contatos').DataTable({

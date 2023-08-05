@@ -1,6 +1,8 @@
 ﻿using ControleDeContatos.Models;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using System.Diagnostics;
+using System.Net;
 
 namespace ControleDeContatos.Controllers
 {
@@ -15,6 +17,10 @@ namespace ControleDeContatos.Controllers
 
         public IActionResult Index()
         {
+            CookieOptions cookie = new CookieOptions();
+            cookie.Expires = DateTime.Now.AddHours(10);
+            cookie.HttpOnly = true;
+            Response.Cookies.Append("Autenticacao", "56454684854568", cookie);
             return View();
         }
 
